@@ -1,0 +1,26 @@
+{
+  "name": "prosemirror-firebase",
+  "version": "0.0.1",
+  "description": "ProseMirror + Firebase",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "rm -rf dist; mkdir dist; rollup src/index.js -f cjs | buble -y dangerousForOf -o dist/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xylk/prosemirror-firebase.git"
+  },
+  "author": "xylk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xylk/prosemirror-firebase/issues"
+  },
+  "homepage": "https://github.com/xylk/prosemirror-firebase#readme",
+  "dependencies": {
+    "prosemirror-compress": "0.0.1"
+  },
+  "devDependencies": {
+    "buble": "^0.15.2",
+    "rollup": "^0.41.4"
+  }
+}
