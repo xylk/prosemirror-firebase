@@ -10,8 +10,8 @@ export class FirebaseEditor {
     progress(0 / 2)
     const this_ = this
     const checkpointRef = this.checkpointRef = firebaseRef.child('checkpoint')
-    const changesRef = this.changesRef = firebaseRef.child('actions')
-    const selectionsRef = this.selectionsRef = firebaseRef.child('cursors')
+    const changesRef = this.changesRef = firebaseRef.child('changes')
+    const selectionsRef = this.selectionsRef = firebaseRef.child('selections')
     const selfSelectionRef = this.selfSelectionRef = selectionsRef.child(selfClientID)
     selfSelectionRef.onDisconnect().remove()
     const selections = this.selections = {}
@@ -21,7 +21,7 @@ export class FirebaseEditor {
     const constructEditor = checkpointRef.once('value').then(
       function (snapshot) {
         progress(1 / 2)
-        let { doc: d, key: latestKey = -1 } = snapshot.val() || {}
+        let { d, k: latestKey = -1 } = snapshot.val() || {}
         latestKey = Number(latestKey)
         stateConfig.doc = d && Node.fromJSON(stateConfig.schema, uncompressStateJSON({ d }).doc)
         stateConfig.plugins = (stateConfig.plugins || []).concat(collab({ clientID: selfClientID }))
@@ -56,8 +56,8 @@ export class FirebaseEditor {
                 if (error) {
                   console.error('updateCollab', error, sendable, key)
                 } else if (committed && key % 100 === 0 && key > 0) {
-                  const { d: doc } = compressStateJSON(newState.toJSON())
-                  checkpointRef.set({ doc, key, })
+                  const { d } = compressStateJSON(newState.toJSON())
+                  checkpointRef.set({ d, k: key, })
                 }
               },
               false )
