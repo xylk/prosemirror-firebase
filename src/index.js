@@ -57,7 +57,7 @@ export class FirebaseEditor {
                   console.error('updateCollab', error, sendable, key)
                 } else if (committed && key % 100 === 0 && key > 0) {
                   const { d } = compressStateJSON(newState.toJSON())
-                  checkpointRef.set({ d, k: key, })
+                  checkpointRef.set({ d, k: key, t: TIMESTAMP })
                 }
               },
               false )
